@@ -9,9 +9,15 @@
             <form action="#" id="mailbox-new-mail">
                 <div class="modal-body">
 
+                    <div class="alert alert-danger" id="errors" style="display: none">
+                        <p id="to-error" style="display: none">Please select one or more recipients.</p>
+                        <p id="title-error" style="display: none">The title field is required.</p>
+                        <p id="body-error" style="display: none">Cannot send a message without text!</p>
+                    </div>
+
                     <div class="form-group">
                         <label for="to">To:</label>
-                        <select class="userSearch" name="to"></select>
+                        <select class="userSearch" name="to[]"></select>
                     </div>
                     <div class="form-group">
                         <label for="title">Title:</label>

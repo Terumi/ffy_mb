@@ -3,7 +3,7 @@
     use Illuminate\Database\Schema\Blueprint;
     use Illuminate\Database\Migrations\Migration;
 
-    class CreateFfyThreadRecipientTable extends Migration
+    class CreateFfyMailboxMessageTable extends Migration
     {
         /**
          * Run the migrations.
@@ -12,10 +12,12 @@
          */
         public function up()
         {
-            Schema::create('ffy_mailbox_thread', function (Blueprint $table) {
+            Schema::create('ffy_mailbox_message', function (Blueprint $table) {
                 $table->increments('id');
-                $table->integer('creator_id')->references('id')->on('users')->onDelete('cascade');
-                $table->string('title');
+                $table->integer('thread_id');
+                $table->foreign('thread_id')->references('id')->on('ffy_mailbox_thread')->onDelete('cascade');
+                $table->integer('author_id')->references('id')->on('users');
+                $table->text('body');
                 $table->timestamps();
             });
         }
@@ -27,6 +29,6 @@
          */
         public function down()
         {
-            Schema::drop('ffy_mailbox_thread');
+            Schema::drop('ffy_mailbox_message');
         }
     }

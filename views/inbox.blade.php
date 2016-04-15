@@ -9,19 +9,9 @@
 
                 <div class="row">
                     <div class="col-xs-12">
-                        <button class="btn btn-danger" role="button" data-toggle="modal"
+                        <button class="btn btn-info" role="button" data-toggle="modal"
                                 data-target="#mailModal">New Message
                         </button>
-                        {{--<div class="btn-group">
-                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Actions
-                                <span class="caret"></span></button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Mark all as read</a></li>
-                                <li><a href="#">Delete selected messages</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Delete selected messages</a></li>
-                            </ul>
-                        </div>--}}
                         <div class="message-pagination pull-right">
                             @include('mailbox::partials.pagination_buttons', ['paginator' => $threads])
                         </div>

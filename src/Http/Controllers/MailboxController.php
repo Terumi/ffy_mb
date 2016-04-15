@@ -4,6 +4,8 @@
 
     use App\Http\Requests;
     use App\Http\Controllers\Controller;
+    use ffy\mailbox\Http\Requests\ReplyToMessageRequest;
+    use ffy\mailbox\Http\Requests\SendMessageRequest;
     use ffy\mailbox\Message;
     use ffy\mailbox\Thread;
     use Illuminate\Support\Collection;
@@ -40,24 +42,23 @@
             App::abort('402', 'User is not permitted to view this email');
         }
 
-        public function newMessage()
+        public function newMessage(SendMessageRequest $request)
         {
-            if (!Auth::check())
-                return false;
+            foreach ($request->get('to') as $to) {
+                $thread = Thread::create([
+                    "title" => $request->get('title'),
+                    "author_id" => Auth::id(),
+                ]);
 
-            $thread = Thread::create([
-                "title" => Input::get('title'),
-                "author_id" => Auth::id(),
-            ]);
+                $message = Message::create([
+                    'author_id' => Auth::id(),
+                    'body' => $request->get('body'),
+                    'thread_id' => $thread->id
+                ]);
 
-            $message = Message::create([
-                'author_id' => Auth::id(),
-                'body' => Input::get('body'),
-                'thread_id' => $thread->id
-            ]);
-
-            $thread->recipients()->attach(Auth::id(), ['seen' => true]);
-            $thread->recipients()->attach(Input::get('to'), ['seen' => false]);
+                $thread->recipients()->attach(Auth::id(), ['seen' => true]);
+                $thread->recipients()->attach($to, ['seen' => false]);
+            }
 
             $message = json_encode("ok");
             return Response::make($message, 200);
@@ -65,17 +66,19 @@
             //todo: send to people (with notification and all)
         }
 
-        public function reply($thread_id)
+        public function reply(ReplyToMessageRequest $request, $thread_id)
         {
+
+            Thread::find($thread_id)->touch();
 
             $this->unsee_thread_for_recipient($thread_id);
 
             Message::create([
                 'author_id' => Auth::id(),
-                'body' => Input::get('body'),
+                'body' => $request->get('body'),
                 'thread_id' => $thread_id
             ]);
-            return Redirect::back();
+            return Redirect::to('mailbox');
         }
 
         public function deleteMessage($thread_id)

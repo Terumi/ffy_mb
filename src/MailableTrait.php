@@ -7,7 +7,7 @@ trait MailableTrait
 {
     public function threads()
     {
-        return $this->belongsToMany(Thread::class, 'ffy_mailbox_thread_recipient', 'user_id')->withPivot('seen')->orderBy('created_at', 'desc');
+        return $this->belongsToMany(Thread::class, 'ffy_mailbox_thread_recipient', 'user_id')->withPivot('seen')->orderBy('updated_at', 'desc');
     }
 
     public function paginatedThreads()
