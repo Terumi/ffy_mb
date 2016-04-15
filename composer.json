@@ -1,0 +1,17 @@
+{
+    "name": "ffy/mailbox",
+    "description": "A mailbox package for Laravel 5.1",
+    "authors": [
+        {
+            "name": "Tasos Protopapas",
+            "email": "tprotopgr@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "ffy\\mailbox\\": "src/"
+        }
+    }
+}
