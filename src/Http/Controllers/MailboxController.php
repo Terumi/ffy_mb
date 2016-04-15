@@ -22,6 +22,9 @@
 
         public function inbox()
         {
+
+            dd(Auth::user()->unseenThreads());
+
             $threads = Auth::user()->paginatedThreads();
             return view('mailbox::inbox')->with('threads', $threads);
         }

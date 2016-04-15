@@ -1,17 +1,22 @@
 <?php
 
 
-namespace ffy\mailbox;
+    namespace ffy\mailbox;
 
-trait MailableTrait
-{
-    public function threads()
+    trait MailableTrait
     {
-        return $this->belongsToMany(Thread::class, 'ffy_mailbox_thread_recipient', 'user_id')->withPivot('seen')->orderBy('updated_at', 'desc');
-    }
+        public function threads()
+        {
+            return $this->belongsToMany(Thread::class, 'ffy_mailbox_thread_recipient', 'user_id')->withPivot('seen')->orderBy('updated_at', 'desc');
+        }
 
-    public function paginatedThreads()
-    {
-        return $this->threads()->paginate(15);
+        public function unseenThreads()
+        {
+            return $this->threads()->where('seen', 0)->get()->count();
+        }
+
+        public function paginatedThreads()
+        {
+            return $this->threads()->paginate(15);
+        }
     }
-}
