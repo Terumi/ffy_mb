@@ -1,6 +1,6 @@
 <?php
 
-    Route::group(['middleware' => ['web'], "prefix" => 'mailbox'], function () {
+    Route::group(['middleware' => ['web', 'auth'], "prefix" => 'mailbox'], function () {
         Route::get('/', 'ffy\mailbox\Http\Controllers\MailboxController@inbox');
         Route::get('/sent', 'ffy\mailbox\Http\Controllers\MailboxController@sent');
         Route::get('/message/{id}', 'ffy\mailbox\Http\Controllers\MailboxController@message');
