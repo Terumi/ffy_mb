@@ -13,7 +13,7 @@
 
         <div class="panel panel-default">
             <div class="panel-heading intro">
-                <h3 class="panel-title">{{$thread->title}}</h3>
+                <h4 class="panel-title">{{$thread->title}}</h4>
             </div>
             <div class="panel-body">
                 <a href="{{url('mailbox')}}" class="btn btn-primary pull-left">Back</a>
