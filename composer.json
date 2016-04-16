@@ -1,6 +1,9 @@
 {
   "name": "ffy/mailbox",
   "description": "A mailbox package for Laravel 5.1",
+  "require": {
+    "php": ">=5.3.0",
+  },
   "authors": [
     {
       "name": "Tasos Protopapas",
