@@ -32,7 +32,7 @@
                     <strong>{{$msg->author->name}}</strong> wrote:
                     <p class="text-muted pull-right">{{$msg->created_at->format('Y-m-d H:i')}}</p>
                     <div class="msg">
-                        {{$msg->body}}
+                        {!! $msg->body !!}
                     </div>
 
                 @endforeach
