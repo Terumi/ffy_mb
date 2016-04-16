@@ -44,6 +44,10 @@
         public function newMessage(SendMessageRequest $request)
         {
             foreach ($request->get('to') as $to) {
+
+                if ($to == Auth::id())
+                    continue;
+
                 $thread = Thread::create([
                     "title" => $request->get('title'),
                     "author_id" => Auth::id(),
