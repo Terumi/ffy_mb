@@ -8,11 +8,9 @@
     use ffy\mailbox\Http\Requests\SendMessageRequest;
     use ffy\mailbox\Message;
     use ffy\mailbox\Thread;
-    use Illuminate\Support\Collection;
     use Illuminate\Support\Facades\App;
     use Illuminate\Support\Facades\Auth;
     use Illuminate\Support\Facades\DB;
-    use Illuminate\Support\Facades\Input;
     use Illuminate\Support\Facades\Redirect;
     use Illuminate\Support\Facades\Response;
 
@@ -22,9 +20,7 @@
 
         public function inbox()
         {
-
-            dd(Auth::user()->unseenThreads());
-
+            //Auth::user()->unseenThreads();
             $threads = Auth::user()->paginatedThreads();
             return view('mailbox::inbox')->with('threads', $threads);
         }
