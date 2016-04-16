@@ -10,7 +10,7 @@
     class Thread extends Model
     {
         protected $table = 'ffy_mailbox_thread';
-        protected $fillable = ['title', 'author_id'];
+        protected $fillable = ['title', 'author_id', 'recipient_id'];
 
         public function author()
         {
@@ -44,9 +44,6 @@
 
         public function otherRecipient($id)
         {
-            return $this->recipients->filter(function ($item) use ($id) {
-                return $item->id != $id;
-            })->first();
-
+            return User::find($this->recipient_id);
         }
     }

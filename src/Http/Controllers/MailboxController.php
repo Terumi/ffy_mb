@@ -51,6 +51,7 @@
                 $thread = Thread::create([
                     "title" => $request->get('title'),
                     "author_id" => Auth::id(),
+                    "recipient_id" => $to,
                 ]);
 
                 $message = Message::create([
