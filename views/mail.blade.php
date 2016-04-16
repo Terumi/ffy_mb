@@ -11,8 +11,7 @@
             </div>
         @endif
 
-
-        <div class="panel panel-default mt45">
+        <div class="panel panel-default">
             <div class="panel-heading intro">
                 <h3 class="panel-title">{{$thread->title}}</h3>
             </div>
