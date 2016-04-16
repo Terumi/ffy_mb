@@ -26,9 +26,11 @@
                 </form>
                 @foreach($thread->messages as $index => $msg)
                     <div class="well">
-                        <strong>{{$msg->author->name}}</strong> <span class="text-muted">on {{$msg->created_at->format('Y-m-d H:i')}}</span>:
-                        <hr>
-                        <div class="msg">
+                        <div class="ffy-mailbox-msg-info">
+                            <span class="ffy-mailbox-name">{{$msg->author->name}} </span>
+                            <span class="ffy-mailbox-date">on {{$msg->created_at->format('Y-m-d H:i')}}</span>:
+                        </div>
+                        <div class="ffy-mailbox-msg">
                             {!! $msg->body !!}
                         </div>
                     </div>
