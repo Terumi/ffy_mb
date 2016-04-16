@@ -15,6 +15,7 @@ class CreateFfyMailboxThreadTable extends Migration
         Schema::create('ffy_mailbox_thread', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('author_id')->references('id')->on('users');
+            $table->integer('recipient_id')->references('id')->on('users');
             $table->string('title');
             $table->timestamps();
         });
