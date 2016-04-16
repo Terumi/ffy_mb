@@ -46,6 +46,9 @@ $(function () {
             data: data,
             dataType: "json",
             success: function (data) {
+                $('#mailModal').on('hidden.bs.modal', function () {
+                    location.reload();
+                });
                 $('#mailModal').modal('hide');
             },
             error: function (data) {

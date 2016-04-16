@@ -27,7 +27,7 @@
                                 @endforeach
                             @endif
                         </div>
-                        @include('mailbox::partials.ad')
+                        {{--@include('mailbox::partials.ad')--}}
                     </div>
                 </div>
             </div>
