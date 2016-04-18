@@ -27,9 +27,9 @@
 
         public function message($id)
         {
+            $thread = Auth::user()->thread($id);
 
-            $thread = Thread::with('author')->find($id);
-            if (!is_null($thread) && $thread->hasRecipient(Auth::id())) {
+            if (!is_null($thread)) {
 
                 DB::table('ffy_mailbox_thread_recipient')
                     ->whereRaw("thread_id = " . $thread->id . " and user_id = " . Auth::id())
@@ -73,9 +73,16 @@
         public function reply(ReplyToMessageRequest $request, $thread_id)
         {
 
-            Thread::find($thread_id)->touch();
-
-            $this->unsee_thread_for_recipient($thread_id);
+            $thread = Thread::find($thread_id);
+            $thread->touch();
+            $recipients = $thread->recipients();
+            // if the other user has deleted the thread...
+            if ($recipients->count() == 1) {
+                $other_recipient = Auth::id() == $thread->author_id ? $thread->recipient_id : $thread->author_id;
+                $thread->recipients()->attach($other_recipient, ['seen' => false]);
+            } else {
+                $this->unsee_thread_for_recipient($thread_id);
+            }
 
             Message::create([
                 'author_id' => Auth::id(),

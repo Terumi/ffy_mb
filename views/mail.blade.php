@@ -24,7 +24,7 @@
                         <button type="submit" class="btn btn-danger btn-md">Delete Message</button>
                     </div>
                 </form>
-                @foreach($thread->messages as $index => $msg)
+                @foreach($thread->threadMessages($thread->pivot->created_at) as $index => $msg)
                     <div class="well">
                         <div class="ffy-mailbox-msg-info">
                             <span class="ffy-mailbox-name">{{$msg->author->name}} </span>

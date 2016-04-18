@@ -17,9 +17,19 @@
             return $this->belongsTo(User::class, 'author_id');
         }
 
+        public function recipient()
+        {
+            return $this->belongsTo(User::class, 'recipient_id');
+        }
+
         public function messages()
         {
             return $this->hasMany(Message::class)->orderBy('created_at', 'desc');
+        }
+
+        public function threadMessages($date)
+        {
+            return $this->messages()->where('created_at', '>=', $date)->get();
         }
 
         public function last_message()
@@ -29,7 +39,7 @@
 
         public function recipients()
         {
-            return $this->belongsToMany(User::class, 'ffy_mailbox_thread_recipient');
+            return $this->belongsToMany(User::class, 'ffy_mailbox_thread_recipient')->withPivot('created_at');
         }
 
         public function getLatestMessageAttribute()
@@ -44,6 +54,6 @@
 
         public function otherRecipient($id)
         {
-            return User::find($this->recipient_id);
+            return $this->author->id == $id ? $this->recipient : $this->author;
         }
     }

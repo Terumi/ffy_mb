@@ -16,6 +16,7 @@
                 $table->integer('thread_id')->references('id')->on('mailbox_thread')->onDelete('cascade');
                 $table->integer('user_id')->references('id')->on('users');
                 $table->boolean('seen')->default(true);
+                $table->timestamps();
             });
         }
 
